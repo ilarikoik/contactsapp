@@ -28,7 +28,6 @@ public class UserController {
         return repository.findAll();
     }
 
-    /// a
     @GetMapping("/appusers/{id}")
     public AppUser getByUser(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
