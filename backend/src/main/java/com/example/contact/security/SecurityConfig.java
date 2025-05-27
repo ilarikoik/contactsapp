@@ -15,7 +15,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+    // https://spring.io/guides/gs/securing-web
+    // https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/index.html#servlet-authentication-unpwd
     private final MyUserDetailService myUserDetailsService;
 
     public SecurityConfig(MyUserDetailService myUserDetailsService) {
