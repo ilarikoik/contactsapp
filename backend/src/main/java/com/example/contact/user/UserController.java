@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +18,18 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-    @PostMapping("/postappuser")
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/create")
     public ResponseEntity<AppUser> createUser(@RequestBody AppUser user) {
-        AppUser savedUser = repository.save(user);
+        AppUser u = new AppUser();
+        u.setAppUser(user.getAppUser());
+        u.setEmail(user.getEmail());
+        u.setId(user.getId());
+        u.setContacts(user.getContacts());
+        u.setPassword(passwordEncoder.encode(user.getPassword())); // crypt
+        AppUser savedUser = repository.save(u);
         return ResponseEntity.ok(savedUser);
     }
 
