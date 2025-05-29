@@ -28,7 +28,7 @@ export default function Login() {
       console.log(token);
     };
     get();
-  }, []);
+  }, [username]);
 
   return (
     <View style={styles.container}>
