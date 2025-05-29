@@ -14,6 +14,8 @@ import getToken from "../api/fetchToken";
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
   Home: undefined; // Ei parametreja
+  Create: undefined; // Ei parametreja
+  // Profile: { userId: string };
 };
 
 export default function Login() {
@@ -34,17 +36,27 @@ export default function Login() {
     <View style={styles.container}>
       <View style={styles.box}>
         <Text style={styles.h1}>
-          Login or <Text style={styles.link}>Create Account</Text>
+          Login or{" "}
+          <Text
+            style={styles.link}
+            onPress={() => navigation.navigate("Create")}
+          >
+            Create Account
+          </Text>
         </Text>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.input}
             placeholder="Username"
+            returnKeyType="done"
             onChangeText={(text) => setUserName(text)}
           ></TextInput>
           <TextInput
             style={styles.input}
             placeholder="Password"
+            secureTextEntry={true}
+            textContentType="password"
+            returnKeyType="done"
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
           <TouchableOpacity
