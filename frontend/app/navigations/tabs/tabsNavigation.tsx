@@ -1,14 +1,14 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import Home from "../../screens/home";
 import Contacts from "./contacts";
 import Settings from "./settings";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Calendar from "./calendar";
 //icons
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
-import Calendar from "./calendar";
 
 const Tab = createBottomTabNavigator();
 
