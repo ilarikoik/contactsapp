@@ -2,21 +2,20 @@ import "react-native-gesture-handler";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "../navigation/screens/home";
-import Login from "../navigation/screens/login";
+import Home from "../screens/home";
+import Login from "../screens/login";
 
 const Stack = createNativeStackNavigator();
 
-export default function LoginNavigation() {
-  const isLoggedIn = false;
+interface user {
+  isLoggedIn: boolean;
+}
+export default function LoginNavigation({ isLoggedIn }: user) {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        {!isLoggedIn ? (
-          <Stack.Screen name="Login" component={Login} />
-        ) : (
-          <Stack.Screen name="Home" component={Home} />
-        )}
+      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Login"}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

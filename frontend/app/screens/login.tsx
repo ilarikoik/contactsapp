@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import getToken from "../api/fetchToken";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
@@ -19,6 +20,15 @@ export default function Login() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const get = async () => {
+      // CORS backendissä
+      const token = await getToken();
+      console.log(token);
+    };
+    get();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -48,6 +58,10 @@ export default function Login() {
               Login
             </Text>
           </TouchableOpacity>
+          <Button
+            title="HomePage"
+            onPress={() => navigation.navigate("Home")}
+          ></Button>
         </View>
       </View>
     </View>

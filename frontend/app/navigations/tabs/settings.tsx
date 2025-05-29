@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Home() {
+export default function Settings() {
   return (
     <View style={styles.container}>
-      <Text>kotisivu</Text>
-      <Text>kotisivu</Text>
-      <Text>kotisivu</Text>
+      <Text>settings</Text>
+      <Text>settings</Text>
+      <Text>settings</Text>
     </View>
   );
 }
@@ -14,7 +14,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff", // tai "transparent", tai poista
+    backgroundColor: "blue", // tai "transparent", tai poista
     alignItems: "center",
     justifyContent: "center",
   },
