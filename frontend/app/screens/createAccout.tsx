@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import LoginButton from "../components/LoginButton";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
@@ -19,6 +20,12 @@ export default function CreateAccount() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const onClick = () => {
+    console.log(username, password);
+    console.log("POST ");
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -38,17 +45,7 @@ export default function CreateAccount() {
             returnKeyType="done"
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
-          <TouchableOpacity
-            style={styles.logincon}
-            // onPress={() => navigation.navigate("Home")}
-          >
-            <Text
-              style={styles.login}
-              onPress={() => console.log(username, password)}
-            >
-              Create
-            </Text>
-          </TouchableOpacity>
+          <LoginButton title={"Create"} onClick={onClick}></LoginButton>
         </View>
       </View>
     </View>
@@ -96,19 +93,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline",
     color: "#2196f3",
-  },
-  logincon: {
-    margin: 5,
-    width: "100%",
-    height: "15%",
-    backgroundColor: "#2196f3",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  login: {
-    fontSize: 25,
-    fontWeight: "ultralight",
-    color: "#ffff",
   },
 });

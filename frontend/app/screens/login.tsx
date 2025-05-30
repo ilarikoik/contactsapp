@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import getToken from "../api/fetchToken";
+import LoginButton from "../components/LoginButton";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
@@ -26,11 +27,15 @@ export default function Login() {
   useEffect(() => {
     const get = async () => {
       // CORS backendissä
-      const token = await getToken();
-      console.log(token);
+      // const token = await getToken();
+      // console.log(token);
     };
     get();
   }, [username]);
+
+  const onClick = () => {
+    console.log("kirjaudutaan sisään");
+  };
 
   return (
     <View style={styles.container}>
@@ -59,21 +64,7 @@ export default function Login() {
             returnKeyType="done"
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
-          <TouchableOpacity
-            style={styles.logincon}
-            // onPress={() => navigation.navigate("Home")}
-          >
-            <Text
-              style={styles.login}
-              onPress={() => console.log(username, password)}
-            >
-              Login
-            </Text>
-          </TouchableOpacity>
-          <Button
-            title="HomePage"
-            onPress={() => navigation.navigate("Home")}
-          ></Button>
+          <LoginButton title={"Login"} onClick={onClick} />
         </View>
       </View>
     </View>
