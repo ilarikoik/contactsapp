@@ -29,16 +29,15 @@ public class SecurityConfig {
                                 // CSRF (Cross-Site Request Forgery) suojaa haitallisilta pyyntöyrityksiltä
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                                // .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests((requests) -> requests
                                                 // pääsy seuraaville sivuille ilman autentikaatiota
-                                                .requestMatchers("/", "/login", "/csrf-token", "/create").permitAll()
-                                                .anyRequest().authenticated())
-                                .formLogin((form) -> form
-                                                .loginPage("/login")
-                                                .defaultSuccessUrl("/home", true)
-                                                .permitAll())
-                                .logout((logout) -> logout.permitAll());
+                                                .requestMatchers("/login", "/csrf-token", "/create").permitAll()
+                                                .anyRequest().authenticated());
+                // .formLogin((form) -> form // olettaa että inputit tulee HTML
+                // .loginPage("/login")
+                // .defaultSuccessUrl("/home", true)
+                // .permitAll())
+                // .logout((logout) -> logout.permitAll());
                 return http.build();
         }
 
