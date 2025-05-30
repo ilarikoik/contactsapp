@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import LoginButton from "../components/LoginButton";
+import LoginButton from "../components/loginButton";
+import postAccount from "../api/postAccount";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
@@ -19,18 +21,26 @@ type RootStackParamList = {
 export default function CreateAccount() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onClick = () => {
-    console.log(username, password);
-    console.log("POST ");
+  const onClick = async () => {
+    if (username && email && password) {
+      await postAccount({ username, email, password });
+    }
     navigation.goBack();
   };
   return (
     <View style={styles.container}>
       <View style={styles.box}>
+        <Text style={styles.h1}>Create Account</Text>
         <View style={styles.inputcontainer}>
-          <Text style={styles.h1}>Create Account</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            returnKeyType="done"
+            onChangeText={(text) => setEmail(text)}
+          ></TextInput>
           <TextInput
             style={styles.input}
             placeholder="Username"
@@ -45,7 +55,19 @@ export default function CreateAccount() {
             returnKeyType="done"
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
-          <LoginButton title={"Create"} onClick={onClick}></LoginButton>
+          <View style={styles.buttoncon}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.icon}
+            >
+              <AntDesign name="close" size={35} color="white" />
+            </TouchableOpacity>
+            <LoginButton
+              title={"Create"}
+              onClick={onClick}
+              buttonWidth={"80%"}
+            ></LoginButton>
+          </View>
         </View>
       </View>
     </View>
@@ -64,10 +86,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  textcon: {
+    flexDirection: "row",
+  },
   inputcontainer: {
     alignItems: "center",
-    width: "70%",
+    width: "80%",
     padding: 3,
     margin: 15,
   },
@@ -79,19 +103,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: "17%",
+    height: 40,
   },
   h1: {
     alignItems: "center",
     justifyContent: "center",
     fontSize: 25,
     fontWeight: "bold",
-    marginBottom: 10,
   },
   link: {
     fontSize: 25,
     fontWeight: "bold",
     textDecorationLine: "underline",
     color: "#2196f3",
+  },
+  buttoncon: {
+    flexDirection: "row",
+    height: 50,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  icon: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#2196f3",
+    color: "white",
+    height: 40,
+    width: "18%",
+    borderRadius: 5,
   },
 });

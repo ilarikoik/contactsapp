@@ -1,25 +1,16 @@
+import { parseSync } from "@babel/core";
+import getToken from "./fetchToken";
 import fetchToken from "./fetchToken";
 
-// TIETOKANTA PÄÄLLE
-// BACKEND PÄÄLLE
-// PARAMETRINÄ username ja password
-
-/**
- * Uuden käyttäjän antamat username ja password
- */
-interface newUserProps {
-  username: string;
+interface loginProps {
   password: string;
   email: string;
 }
-export default async function postAccount({
-  username,
-  password,
-  email,
-}: newUserProps) {
+
+export default async function login({ email, password }: loginProps) {
   try {
-    const token = await fetchToken();
-    const response = await fetch("http://192.168.10.230:8080/create", {
+    const token = await getToken();
+    const response = await fetch("http://192.168.10.230:8080/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +18,6 @@ export default async function postAccount({
       },
       credentials: "include",
       body: JSON.stringify({
-        appUser: username,
         email: email,
         password: password,
       }),
@@ -39,8 +29,9 @@ export default async function postAccount({
       );
     }
     const okText = await response.text();
-    console.log("OK response text:", okText);
+    console.log(response);
+    return okText;
   } catch (error) {
-    console.log("error while creating account, POST", error);
+    console.log("error while logging ", error);
   }
 }

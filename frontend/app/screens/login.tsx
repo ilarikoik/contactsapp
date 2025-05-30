@@ -10,51 +10,69 @@ import {
   View,
 } from "react-native";
 import getToken from "../api/fetchToken";
-import LoginButton from "../components/LoginButton";
+import LoginButton from "../components/loginButton";
+import login from "../api/login";
+import { useUser } from "../context/userContext";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
   Home: undefined; // Ei parametreja
   Create: undefined; // Ei parametreja
+  Tabs: {
+    screen?: keyof TabParamList;
+    params?: any;
+  };
   // Profile: { userId: string };
 };
 
+type TabParamList = {
+  Home: undefined;
+  Calendar: undefined;
+  Contacts: undefined;
+  Settings: undefined;
+};
+
 export default function Login() {
+  const { setUser } = useUser();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const get = async () => {
-      // CORS backendissä
-      // const token = await getToken();
-      // console.log(token);
-    };
+    const get = async () => {};
     get();
-  }, [username]);
+  }, []);
 
-  const onClick = () => {
-    console.log("kirjaudutaan sisään");
+  const onClick = async () => {
+    try {
+      const res = await login({ email, password });
+      if (res) {
+        setUser({ name: res });
+        // navigation.navigate("Home");
+      }
+    } catch (e) {
+      Error("Login error: ");
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.h1}>
-          Login or{" "}
+        <View style={styles.textcon}>
+          <Text style={styles.h1}>{"Login or "}</Text>
           <Text
             style={styles.link}
             onPress={() => navigation.navigate("Create")}
           >
-            Create Account
+            {"Create Account"}
           </Text>
-        </Text>
+        </View>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.input}
-            placeholder="Username"
+            placeholder="Email"
             returnKeyType="done"
-            onChangeText={(text) => setUserName(text)}
+            onChangeText={(text) => setEmail(text)}
           ></TextInput>
           <TextInput
             style={styles.input}
@@ -64,7 +82,7 @@ export default function Login() {
             returnKeyType="done"
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
-          <LoginButton title={"Login"} onClick={onClick} />
+          <LoginButton title={"Login"} onClick={onClick} buttonWidth={"100%"} />
         </View>
       </View>
     </View>
@@ -83,10 +101,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  textcon: {
+    flexDirection: "row",
+  },
   inputcontainer: {
     alignItems: "center",
-    width: "70%",
+    width: "80%",
     padding: 3,
     margin: 15,
   },
@@ -98,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: "17%",
+    height: 40,
   },
   h1: {
     alignItems: "center",
@@ -111,19 +131,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline",
     color: "#2196f3",
-  },
-  logincon: {
-    margin: 5,
-    width: "100%",
-    height: "15%",
-    backgroundColor: "#2196f3",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  login: {
-    fontSize: 25,
-    fontWeight: "ultralight",
-    color: "#ffff",
   },
 });
