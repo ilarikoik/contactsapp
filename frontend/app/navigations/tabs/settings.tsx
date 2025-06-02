@@ -12,15 +12,22 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import ItemList from "../../components/itemList";
 import LogoutButton from "../../components/logout";
 import { useUser } from "../../context/userContext";
+import { useTheme } from "../../context/themeContext";
 
 export default function Settings() {
   const { user } = useUser();
+  const { theme, setTheme } = useTheme();
 
   return (
     <>
       <View style={styles.con}>
         <View style={styles.settingscon}>
-          <Text style={styles.text}>{user ? "Theme toggle Text" : "Dark"}</Text>
+          <Text
+            style={styles.text}
+            onPress={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            {theme === "light" ? "Change to dark mode" : "Change to light mode"}
+          </Text>
           <Text style={styles.text}>You have x upcoming events.</Text>
           <Text style={styles.text}>You had x events.</Text>
           <LogoutButton />
