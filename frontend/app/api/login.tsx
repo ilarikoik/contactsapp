@@ -28,9 +28,11 @@ export default async function login({ email, password }: loginProps) {
         `HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
-    const okText = await response.text();
-    console.log(response);
-    return okText;
+    // const okText = await response.text();
+    // console.log(response);
+    // return okText;
+    const res = await response.json();
+    return res;
   } catch (error) {
     console.log("error while logging ", error);
   }

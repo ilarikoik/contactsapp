@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -13,16 +13,31 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import ItemList from "../../components/itemList";
 import { useTheme } from "../../context/themeContext";
 import ContactModal from "../../components/addContactModal";
+import { useUser } from "../../context/userContext";
+import getContacts from "../../api/getContacts";
 
 export default function Contacts() {
-  const [data, setData] = useState(Array.from({ length: 50 }, (_, i) => i + 1));
+  const [data, setData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => setModalVisible(!modalVisible);
   const { theme, setTheme, colors } = useTheme();
+  const { user } = useUser();
 
   const handleAdd = () => {
     setModalVisible(!modalVisible);
   };
+
+  useEffect(() => {
+    const get = async () => {
+      if (user?.id) {
+        const res = await getContacts(user?.id);
+        setData(res);
+        console.log(res);
+      }
+    };
+    get();
+  }, []);
+
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
@@ -50,7 +65,7 @@ export default function Contacts() {
         </View>
         <ContactModal toggleModal={toggleModal} modalVisible={modalVisible} />
 
-        <ItemList data={data} itemHeight={50}></ItemList>
+        <ItemList data={data} itemHeight={60}></ItemList>
         {/* </SafeAreaView>
         </SafeAreaProvider> */}
       </View>

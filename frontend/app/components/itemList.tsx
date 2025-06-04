@@ -31,7 +31,32 @@ export default function ItemList({ data, itemHeight }: listProps) {
                   },
                 ]}
               >
-                <Text style={{ color: colors.text }}>{item}</Text>
+                <View style={styles.namecon}>
+                  <Text style={{ color: colors.text, fontSize: 22 }}>
+                    {item.firstName + " " + item.lastName}
+                  </Text>
+                  {/* <Text style={{ color: colors.text, fontSize: 22 }}>
+                    {item.lastName}
+                  </Text> */}
+                </View>
+                <View style={styles.infocon}>
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 18,
+                    }}
+                  >
+                    {item.phone}
+                  </Text>
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 18,
+                    }}
+                  >
+                    {item.email}
+                  </Text>
+                </View>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -51,5 +76,18 @@ const styles = StyleSheet.create({
     margin: 5,
     borderBottomWidth: 1,
     padding: 5,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  namecon: {
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  infocon: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-evenly",
   },
 });

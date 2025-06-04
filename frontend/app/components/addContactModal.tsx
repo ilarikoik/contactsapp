@@ -11,14 +11,55 @@ import {
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
+import postContact from "../api/postContact";
+import { useUser } from "../context/userContext";
 
 type ModalProps = {
   toggleModal: () => void;
   modalVisible: boolean;
 };
 
+type ContactType = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  appUser: {
+    userId: number;
+  };
+};
+
 export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
+  const { user } = useUser();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [userId, setUserId] = useState(user?.id); // contextin avulla käyttäjä id
+
+  const saveContact = async () => {
+    //pakolliset
+    if (firstname && userId) {
+      const contact: ContactType = {
+        firstname,
+        lastname,
+        email,
+        phone,
+        appUser: {
+          userId,
+        },
+      };
+      console.log(contact);
+      const res = await postContact(contact);
+      console.log("postaus frontti");
+      console.log(res);
+    }
+    // await funktio jolle annetaan objekti
+    toggleModal();
+  };
+
   const { theme, colors } = useTheme();
+
   const handleModal = () => {
     toggleModal();
   };
@@ -47,6 +88,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
               ]}
               placeholderTextColor="#999"
               returnKeyType="done"
+              onChangeText={(text) => setFirstname(text)}
             />
             <Text style={{ textAlign: "left", width: "100%" }}>Sukunimi:</Text>
             <TextInput
@@ -59,6 +101,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
               ]}
               placeholderTextColor="#999"
               returnKeyType="done"
+              onChangeText={(text) => setLastname(text)}
             />
             <Text style={{ textAlign: "left", width: "100%" }}>
               Sähköposti:
@@ -73,6 +116,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
               ]}
               placeholderTextColor="#999"
               returnKeyType="done"
+              onChangeText={(text) => setEmail(text)}
             />
             <Text style={{ textAlign: "left", width: "100%" }}>
               Puhelinnumero:
@@ -87,6 +131,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
               ]}
               placeholderTextColor="#999"
               returnKeyType="done"
+              onChangeText={(text) => setPhone(text)}
             />
           </View>
           <View style={styles.buttoncon}>
@@ -98,7 +143,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonSave]}
-              onPress={handleModal}
+              onPress={saveContact}
             >
               <Text style={styles.textStyle}>Save</Text>
             </Pressable>

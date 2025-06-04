@@ -1,8 +1,9 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
 
 type User = {
-  name: string;
-  //   email: string;
+  appUser: string;
+  email: string;
+  id: number;
   // muut tarvittavat tiedot
 } | null;
 

@@ -46,8 +46,12 @@ export default function Login() {
   const onClick = async () => {
     try {
       const res = await login({ email, password });
-      if (res) {
-        setUser({ name: res });
+      if (res.id) {
+        setUser({
+          id: res.id,
+          appUser: res.appUser || "thjä",
+          email: res.email || "",
+        });
         // navigation.navigate("Home");
       }
     } catch (e) {
