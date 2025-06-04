@@ -26,16 +26,16 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
-                                // CSRF (Cross-Site Request Forgery) suojaa haitallisilta pyyntöyrityksiltä
+                                // CSRF protection enabled with cookie-based tokens, HttpOnly false for JS
+                                // access
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                                .authorizeHttpRequests((requests) -> requests
-                                                // pääsy seuraaville sivuille ilman autentikaatiota
+                                .authorizeHttpRequests(requests -> requests
+                                                // allow access without authentication to these endpoints
                                                 .requestMatchers("/login", "/csrf-token", "/create", "/postcontact",
-                                                                "/contacts/**")
-                                                // JSESSIONCOOCKIE pitää tehdä ja poistaa /postcontacts ja
-                                                // /contacts/id" tosta
+                                                                "/contacts/**", "/postmeetup")
                                                 .permitAll()
+                                                // all other requests require authentication
                                                 .anyRequest().authenticated());
                 return http.build();
         }

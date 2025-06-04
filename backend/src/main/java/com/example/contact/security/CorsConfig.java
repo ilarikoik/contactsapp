@@ -28,6 +28,10 @@ public class CorsConfig {
                         .allowedOrigins("http://192.168.10.230:19000")
                         .allowedMethods("POST")
                         .allowCredentials(true);
+                registry.addMapping("/postmeetup")
+                        .allowedOrigins("http://192.168.10.230:19000")
+                        .allowedMethods("POST")
+                        .allowCredentials(true);
             }
         };
     }
