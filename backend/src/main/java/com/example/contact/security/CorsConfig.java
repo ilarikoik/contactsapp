@@ -16,7 +16,15 @@ public class CorsConfig {
                         .allowedOrigins("http://192.168.10.230:19000")
                         .allowedMethods("GET")
                         .allowCredentials(true);
+                registry.addMapping("/contacts/id")
+                        .allowedOrigins("http://192.168.10.230:19000")
+                        .allowedMethods("GET")
+                        .allowCredentials(true);
                 registry.addMapping("/create")
+                        .allowedOrigins("http://192.168.10.230:19000")
+                        .allowedMethods("POST")
+                        .allowCredentials(true);
+                registry.addMapping("/postcontact")
                         .allowedOrigins("http://192.168.10.230:19000")
                         .allowedMethods("POST")
                         .allowCredentials(true);

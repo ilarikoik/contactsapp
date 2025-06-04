@@ -31,13 +31,12 @@ public class SecurityConfig {
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests((requests) -> requests
                                                 // pääsy seuraaville sivuille ilman autentikaatiota
-                                                .requestMatchers("/login", "/csrf-token", "/create").permitAll()
+                                                .requestMatchers("/login", "/csrf-token", "/create", "/postcontact",
+                                                                "/contacts/**")
+                                                // JSESSIONCOOCKIE pitää tehdä ja poistaa /postcontacts ja
+                                                // /contacts/id" tosta
+                                                .permitAll()
                                                 .anyRequest().authenticated());
-                // .formLogin((form) -> form // olettaa että inputit tulee HTML
-                // .loginPage("/login")
-                // .defaultSuccessUrl("/home", true)
-                // .permitAll())
-                // .logout((logout) -> logout.permitAll());
                 return http.build();
         }
 

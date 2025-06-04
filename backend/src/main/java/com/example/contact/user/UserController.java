@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         Optional<AppUser> appUser = repository.findByEmail(loginRequest.getEmail());
 
         // System.out.println("Raw password: " + loginRequest.getPassword());
@@ -77,6 +77,7 @@ public class UserController {
 
         if (!appUser.isPresent()) {
             return ResponseEntity.badRequest().body("User doesent exists");
+            // return null;
         }
 
         boolean passwordMatches = passwordEncoder.matches(
@@ -85,9 +86,11 @@ public class UserController {
 
         if (!passwordMatches) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong email or password");
+            // return null;
         }
 
-        return ResponseEntity.ok(appUser.get().getAppUser().toString());
+        return ResponseEntity.ok(appUser.get());
+        // return appUser;
     }
 
 }
