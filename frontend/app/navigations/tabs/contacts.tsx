@@ -22,6 +22,7 @@ export default function Contacts() {
   const toggleModal = () => setModalVisible(!modalVisible);
   const { theme, setTheme, colors } = useTheme();
   const { user } = useUser();
+  const [search, setSearch] = useState("");
 
   const handleAdd = () => {
     setModalVisible(!modalVisible);
@@ -32,11 +33,16 @@ export default function Contacts() {
       if (user?.id) {
         const res = await getContacts(user?.id);
         setData(res);
-        console.log(res);
       }
     };
     get();
   }, []);
+
+  const filtered = data.filter(
+    (item: any) =>
+      item.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+      item.lastName?.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -57,6 +63,7 @@ export default function Contacts() {
             placeholder="Search"
             placeholderTextColor="#999"
             returnKeyType="done"
+            onChangeText={(text) => setSearch(text)}
           />
 
           <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
@@ -65,7 +72,7 @@ export default function Contacts() {
         </View>
         <ContactModal toggleModal={toggleModal} modalVisible={modalVisible} />
 
-        <ItemList data={data} itemHeight={60}></ItemList>
+        <ItemList data={filtered} itemHeight={60}></ItemList>
         {/* </SafeAreaView>
         </SafeAreaProvider> */}
       </View>

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
@@ -11,6 +11,7 @@ type listProps = {
 
 export default function ItemList({ data, itemHeight }: listProps) {
   const { theme, setTheme, colors } = useTheme();
+
   return (
     <>
       <SafeAreaProvider>

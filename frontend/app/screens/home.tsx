@@ -18,8 +18,6 @@ export default function Home() {
   useEffect(() => {
     const get = async () => {
       if (user?.id) {
-        const data = await getContacts(user?.id);
-        console.log(data + "pööööö");
       }
     };
     get();
