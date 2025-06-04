@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  Button,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ItemList from "../components/itemList";
 import { useUser } from "../context/userContext";
 import { useTheme } from "../context/themeContext";
 import getContacts from "../api/getContacts";
+import getToken from "../api/fetchToken";
+import postMeetup from "../api/postMeetup";
 
 type userProps = {
   name: string;
@@ -26,6 +35,7 @@ export default function Home() {
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
+        <Button title="test POST" onPress={() => console.log(postMeetup())} />
         <Text style={[styles.h1, { color: colors.text }]}>
           {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}
         </Text>
