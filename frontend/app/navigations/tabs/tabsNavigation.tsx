@@ -15,6 +15,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
 import { useUser } from "../../context/userContext";
 import { useEffect } from "react";
+import { Header } from "react-native/Libraries/NewAppScreen";
+import { useTheme } from "../../context/themeContext";
+import { View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +30,7 @@ type RootStackParamList = {
 export default function TabsNavigation() {
   const { user } = useUser();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { colors } = useTheme();
 
   useEffect(() => {
     if (!user) {
@@ -34,7 +38,25 @@ export default function TabsNavigation() {
     }
   }, [user]);
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: colors.background,
+        },
+        headerTintColor: colors.text,
+        tabBarActiveTintColor: colors.text, // Aktiivisen tabin teksti/ikoni
+        tabBarInactiveTintColor: colors.text, // Epäaktiivisen tabin teksti/ikoni
+        tabBarBackground: () => (
+          <View
+            style={{
+              backgroundColor: colors.background,
+              flex: 1,
+            }}
+          />
+        ),
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
