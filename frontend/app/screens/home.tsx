@@ -17,13 +17,66 @@ import getContacts from "../api/get/getContacts";
 import getToken from "../api/get/fetchToken";
 import postMeetup from "../api/post/postMeetup";
 import { ScrollView } from "react-native-gesture-handler";
+import HomeItemList from "../components/homeItemList";
 
 type userProps = {
   name: string;
 };
 
 export default function Home() {
-  const [data, setData] = useState(Array.from({ length: 50 }, (_, i) => i + 1));
+  const [data, setData] = useState([
+    "Apple",
+    "Banana",
+    "Orange",
+    "Grapes",
+    "Mango",
+    "Strawberry",
+    "Pineapple",
+    "Blueberry",
+    "Watermelon",
+    "Cherry",
+    "Peach",
+    "Kiwi",
+    "Lemon",
+    "Lime",
+    "Coconut",
+    "Avocado",
+    "Pear",
+    "Plum",
+    "Raspberry",
+    "Blackberry",
+    "Papaya",
+    "Fig",
+    "Guava",
+    "Passionfruit",
+    "Tangerine",
+    "Date",
+    "Pomegranate",
+    "Apricot",
+    "Dragonfruit",
+    "Lychee",
+    "Durian",
+    "Jackfruit",
+    "Starfruit",
+    "Cantaloupe",
+    "Honeydew",
+    "Persimmon",
+    "Cranberry",
+    "Gooseberry",
+    "Mulberry",
+    "Nectarine",
+    "Quince",
+    "Rambutan",
+    "Soursop",
+    "Tamarind",
+    "Ugli fruit",
+    "Yuzu",
+    "Zucchini", // ok this is a fruit botanically!
+    "Tomato",
+    "Pumpkin",
+    "Olive",
+  ]);
+
   const { user } = useUser();
   const { colors, theme } = useTheme();
   const [searchBar, setSearchBar] = useState(false);
@@ -66,6 +119,14 @@ export default function Home() {
 
   // const sorted = categories.sort((a, b) => a.label.localeCompare(b.label));
 
+  const filtered = data.filter((item) =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleBack = () => {
+    setSearchBar(false);
+    setSearch("");
+  };
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
@@ -74,10 +135,7 @@ export default function Home() {
           {searchBar ? (
             <>
               <View style={styles.searchcon}>
-                <TouchableOpacity
-                  style={styles.addButton}
-                  onPress={() => setSearchBar(false)}
-                >
+                <TouchableOpacity style={styles.addButton} onPress={handleBack}>
                   <Text style={[styles.addText, { color: "#fff" }]}>Back</Text>
                 </TouchableOpacity>
                 <TextInput
@@ -91,7 +149,7 @@ export default function Home() {
                   placeholder="Search"
                   placeholderTextColor="#999"
                   returnKeyType="done"
-                  // onChangeText={(text) => setSearch(text)}
+                  onChangeText={(text) => setSearch(text)}
                 />
               </View>
             </>
@@ -116,7 +174,7 @@ export default function Home() {
         {/* <Text style={[styles.h1, { color: colors.text }]}>
           {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}
         </Text> */}
-        <ItemList data={data} itemHeight={120}></ItemList>
+        <HomeItemList data={filtered} itemHeight={120}></HomeItemList>
       </View>
     </>
   );
@@ -136,6 +194,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-start",
     padding: 5,
+    marginBottom: 10,
     // backgroundColor: "#fff",
   },
   categorybutton: {
