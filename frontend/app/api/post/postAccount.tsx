@@ -1,4 +1,4 @@
-import fetchToken from "./fetchToken";
+import fetchToken from "../get/fetchToken";
 
 // TIETOKANTA PÄÄLLE
 // BACKEND PÄÄLLE

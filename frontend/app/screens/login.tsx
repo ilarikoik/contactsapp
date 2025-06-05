@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import getToken from "../api/fetchToken";
+import getToken from "../api/get/fetchToken";
 import LoginButton from "../components/loginButton";
-import login from "../api/login";
+import login from "../api/post/login";
 import { useUser } from "../context/userContext";
 
 type RootStackParamList = {

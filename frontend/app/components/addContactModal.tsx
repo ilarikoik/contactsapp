@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
-import postContact from "../api/postContact";
+import postContact from "../api/post/postContact";
 import { useUser } from "../context/userContext";
 
 type ModalProps = {

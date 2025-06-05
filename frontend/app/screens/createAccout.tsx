@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import LoginButton from "../components/loginButton";
-import postAccount from "../api/postAccount";
+import postAccount from "../api/post/postAccount";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 type RootStackParamList = {

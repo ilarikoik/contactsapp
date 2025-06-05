@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import RootNavigator from "./app/navigations/rootNavigator";
 import { AppProviders } from "./app/context/appProvider";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   return (
-    <AppProviders>
-      <RootNavigator />
-    </AppProviders>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AppProviders>
+        <RootNavigator />
+      </AppProviders>
+    </GestureHandlerRootView>
   );
 }
 

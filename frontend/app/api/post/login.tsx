@@ -1,6 +1,6 @@
 import { parseSync } from "@babel/core";
-import getToken from "./fetchToken";
-import fetchToken from "./fetchToken";
+import getToken from "../get/fetchToken";
+import fetchToken from "../get/fetchToken";
 
 interface loginProps {
   password: string;

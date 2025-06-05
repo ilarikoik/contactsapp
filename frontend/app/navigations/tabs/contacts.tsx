@@ -14,7 +14,7 @@ import ItemList from "../../components/itemList";
 import { useTheme } from "../../context/themeContext";
 import ContactModal from "../../components/addContactModal";
 import { useUser } from "../../context/userContext";
-import getContacts from "../../api/getContacts";
+import getContacts from "../../api/get/getContacts";
 
 export default function Contacts() {
   const [data, setData] = useState([]);
