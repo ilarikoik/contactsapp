@@ -18,64 +18,12 @@ import getToken from "../api/get/fetchToken";
 import postMeetup from "../api/post/postMeetup";
 import { ScrollView } from "react-native-gesture-handler";
 import HomeItemList from "../components/homeItemList";
-
-type userProps = {
-  name: string;
-};
+import getTicketmaster from "../api/get/getTicketMaster";
+import getBoredAPi from "../api/get/getBoredApi";
+import { formatBoredData } from "../utils/formatters";
 
 export default function Home() {
-  const [data, setData] = useState([
-    "Apple",
-    "Banana",
-    "Orange",
-    "Grapes",
-    "Mango",
-    "Strawberry",
-    "Pineapple",
-    "Blueberry",
-    "Watermelon",
-    "Cherry",
-    "Peach",
-    "Kiwi",
-    "Lemon",
-    "Lime",
-    "Coconut",
-    "Avocado",
-    "Pear",
-    "Plum",
-    "Raspberry",
-    "Blackberry",
-    "Papaya",
-    "Fig",
-    "Guava",
-    "Passionfruit",
-    "Tangerine",
-    "Date",
-    "Pomegranate",
-    "Apricot",
-    "Dragonfruit",
-    "Lychee",
-    "Durian",
-    "Jackfruit",
-    "Starfruit",
-    "Cantaloupe",
-    "Honeydew",
-    "Persimmon",
-    "Cranberry",
-    "Gooseberry",
-    "Mulberry",
-    "Nectarine",
-    "Quince",
-    "Rambutan",
-    "Soursop",
-    "Tamarind",
-    "Ugli fruit",
-    "Yuzu",
-    "Zucchini", // ok this is a fruit botanically!
-    "Tomato",
-    "Pumpkin",
-    "Olive",
-  ]);
+  const [data, setData] = useState<any>();
 
   const { user } = useUser();
   const { colors, theme } = useTheme();
@@ -94,6 +42,7 @@ export default function Home() {
     {
       label: "Restaurants",
       // onPress: fetchRestaurants,
+      active: false,
     },
     {
       label: "Bars",
@@ -101,11 +50,8 @@ export default function Home() {
     },
     {
       label: "Events",
-      // onPress: fetchEvents,
-    },
-    {
-      label: "Random Activity",
-      // onPress: fetchRandomActivity,
+      onPress: getTicketmaster,
+      active: false,
     },
     {
       label: "Games",
@@ -115,22 +61,36 @@ export default function Home() {
       label: "Parks & Grill",
       // onPress: fetchParksAndGrill,
     },
+    {
+      label: "Random Activity",
+      onPress: getBoredAPi,
+      active: false,
+    },
   ];
 
   // const sorted = categories.sort((a, b) => a.label.localeCompare(b.label));
 
-  const filtered = data.filter((item) =>
-    item.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filtered = data?.filter((item: any) =>
+  //   item.name?.toLowerCase().includes(search.toLowerCase())
+  // );
 
   const handleBack = () => {
     setSearchBar(false);
     setSearch("");
   };
+
+  const handleCategory = async (category: any) => {
+    setSearchBar(true);
+    const result = await category.onPress("FI");
+    setData(result);
+  };
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
-        {/* <Button title="test POST" onPress={() => console.log(postMeetup())} /> */}
+        {/* <Button
+          title="test ticket"
+          onPress={async () => console.log(await getTicketmaster("FI"))}
+        /> */}
         <View style={styles.categorycon}>
           {searchBar ? (
             <>
@@ -159,9 +119,7 @@ export default function Home() {
                 <TouchableOpacity
                   key={index}
                   style={[styles.categorybutton, { borderColor: colors.text }]}
-                  onPress={() => {
-                    console.log("klikattu"), setSearchBar(true);
-                  }}
+                  onPress={() => handleCategory(category)}
                 >
                   <Text style={[styles.text, { color: colors.text }]}>
                     {category.label}
@@ -174,7 +132,7 @@ export default function Home() {
         {/* <Text style={[styles.h1, { color: colors.text }]}>
           {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}
         </Text> */}
-        <HomeItemList data={filtered} itemHeight={120}></HomeItemList>
+        <HomeItemList data={data} itemHeight={120}></HomeItemList>
       </View>
     </>
   );
