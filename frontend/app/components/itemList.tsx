@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
 
@@ -38,7 +45,7 @@ export default function ItemList({ data, itemHeight }: listProps) {
                   </Text>
                   {/* <Text style={{ color: colors.text, fontSize: 22 }}>
                     {item.lastName}
-                  </Text> */}
+                    </Text> */}
                 </View>
                 <View style={styles.infocon}>
                   <Text

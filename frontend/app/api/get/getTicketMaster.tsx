@@ -14,7 +14,16 @@ export default async function getTicketmaster(country: string) {
     }
     // console.log(res);
     const data = await res.json();
-    return data._embedded.events;
+    if (data && data._embedded && data._embedded.events) {
+      return data._embedded.events.map((event: any) => ({
+        name: event.name,
+        date: event.dates.start.localDate || null,
+        time: event.dates.start.localTime || null,
+        images: event.images || null,
+      }));
+    }
+
+    return null;
   } catch (error) {
     console.log("error while fetching Ticketmaster data:", error);
   }

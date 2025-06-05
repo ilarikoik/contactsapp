@@ -27,6 +27,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
     }
     return;
   };
+
   return (
     <>
       <SafeAreaProvider>
@@ -37,7 +38,6 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
             //   <Text style={styles.h1}>Find someting to do..</Text>
             // )}
             renderItem={({ item }) => (
-              //   <ImageBackground source={{ uri: item.images.url }}>
               <View
                 style={[
                   styles.listItem,
@@ -48,6 +48,18 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                   },
                 ]}
               >
+                <ImageBackground
+                  source={{
+                    uri:
+                      item.images && item.images.length > 0
+                        ? item.images[
+                            Math.floor(Math.random() * item.images.length)
+                          ].url
+                        : "https://via.placeholder.com/150",
+                  }}
+                  style={{ width: "100%", height: 200 }}
+                  resizeMode="cover"
+                ></ImageBackground>
                 <View style={styles.namecon}>
                   <Text
                     style={{
@@ -61,15 +73,13 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                 </View>
                 <View style={styles.infocon}>
                   <Text style={{ color: colors.text, fontSize: 15 }}>
-                    {item.time}
-                    {/* {sliceTime(item.dates.start.localTime)} */}
+                    {sliceTime(item.time)}
                   </Text>
                   <Text style={{ color: colors.text, fontSize: 15 }}>
                     {item.date}
                   </Text>
                 </View>
               </View>
-              //   </ImageBackground>
             )}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -86,10 +96,12 @@ const styles = StyleSheet.create({
   },
   listItem: {
     margin: 5,
+
     borderBottomWidth: 1,
     padding: 5,
     alignItems: "center",
     justifyContent: "space-around",
+
     // backgroundColor: "red",
   },
   namecon: {

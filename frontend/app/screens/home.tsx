@@ -70,9 +70,9 @@ export default function Home() {
 
   // const sorted = categories.sort((a, b) => a.label.localeCompare(b.label));
 
-  // const filtered = data?.filter((item: any) =>
-  //   item.name?.toLowerCase().includes(search.toLowerCase())
-  // );
+  const filtered = data?.filter((item: any) =>
+    item.name?.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleBack = () => {
     setSearchBar(false);
@@ -132,7 +132,7 @@ export default function Home() {
         {/* <Text style={[styles.h1, { color: colors.text }]}>
           {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}
         </Text> */}
-        <HomeItemList data={data} itemHeight={120}></HomeItemList>
+        <HomeItemList data={filtered} itemHeight={280}></HomeItemList>
       </View>
     </>
   );
