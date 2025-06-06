@@ -110,9 +110,19 @@ export const MeetupModal = ({
       style={styles.centeredView}
     >
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+        <View
+          style={[
+            styles.modalView,
+            { backgroundColor: theme === "dark" ? "#212121" : "#fff" },
+          ]}
+        >
           <View style={styles.row}>
-            <Text style={{ textAlign: "left", width: "100%" }}>
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
               Event Staring Date & Time:
             </Text>
             <TextInput
@@ -128,7 +138,12 @@ export const MeetupModal = ({
               value={date}
               onChangeText={(text) => setDate(text)}
             />
-            <Text style={{ textAlign: "left", width: "100%" }}>
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
               Meetup Place:
             </Text>
             <TextInput
@@ -143,7 +158,14 @@ export const MeetupModal = ({
               returnKeyType="done"
               onChangeText={(text) => setLocation(text)}
             />
-            <Text style={{ textAlign: "left", width: "100%" }}>Todo:</Text>
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
+              Todo:
+            </Text>
             <TextInput
               style={[
                 styles.input,
@@ -156,7 +178,12 @@ export const MeetupModal = ({
               returnKeyType="done"
               onChangeText={(text) => setTodo(text)}
             />
-            <Text style={{ textAlign: "left", width: "100%" }}>
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
               Additional Info:
             </Text>
             <TextInput
@@ -171,7 +198,12 @@ export const MeetupModal = ({
               returnKeyType="done"
               onChangeText={(text) => setInfo(text)}
             />
-            <Text style={{ textAlign: "left", width: "100%" }}>
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
               Participants:
             </Text>
             <TextInput
@@ -201,9 +233,12 @@ export const MeetupModal = ({
                     ]}
                   >
                     <Text
-                      style={{
-                        color: colors.text,
-                      }}
+                      style={[
+                        styles.label,
+                        {
+                          color: colors.text,
+                        },
+                      ]}
                     >
                       {contact.firstName + contact.lastName}
                     </Text>
@@ -262,7 +297,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     // backgroundColor: "red",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     height: "auto",
     width: "85%",
     borderRadius: 20,
@@ -310,6 +345,9 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  label: {
+    fontWeight: "bold",
   },
   row: {
     height: "70%",
