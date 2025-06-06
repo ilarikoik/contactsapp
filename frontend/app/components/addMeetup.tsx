@@ -28,9 +28,7 @@ type MeetupType = {
   todo: string;
   info: string;
   creator: number;
-  paticipants: {
-    paticipantsIds: number[];
-  };
+  participants: number[];
 };
 
 type Contact = {
@@ -52,7 +50,7 @@ export const MeetupModal = ({
   const [todo, setTodo] = useState("");
   const [info, setInfo] = useState("");
   const [creator, setCreator] = useState(user?.id);
-  const [paticipantsIds, setPaticipantsIds] = useState<number[]>([]);
+  const [participants, setParticipants] = useState<number[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
   const { theme, colors } = useTheme();
@@ -65,15 +63,13 @@ export const MeetupModal = ({
         todo,
         info,
         creator,
-        paticipants: {
-          paticipantsIds: paticipantsIds,
-        },
+        participants,
       };
       console.log(meetup);
       // LÄHETÄ
     }
     toggleModal();
-    setPaticipantsIds([]);
+    setParticipants([]);
   };
 
   const handleModal = () => {
@@ -93,10 +89,10 @@ export const MeetupModal = ({
   }, [datetime]);
 
   const addToParcitipants = (id: number) => {
-    setPaticipantsIds([...paticipantsIds, id]);
+    setParticipants([...participants, id]);
     const filteredContacts = contacts.filter((item) => item.id !== id);
     console.log(id, " lisätty");
-    console.log(paticipantsIds);
+    console.log(participants);
     setContacts(filteredContacts);
     setSearch("");
   };
