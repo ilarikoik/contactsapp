@@ -14,6 +14,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
+// MÄÄRITTÄÄ MITKÄ ENDPOINTIT ON AVOINNA KAIKILLE JA MIHIN TARVII ESIM TOKENIN
 public class SecurityConfig {
         // https://spring.io/guides/gs/securing-web
         // https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/index.html#servlet-authentication-unpwd
@@ -33,7 +34,8 @@ public class SecurityConfig {
                                 .authorizeHttpRequests(requests -> requests
                                                 // allow access without authentication to these endpoints
                                                 .requestMatchers("/login", "/csrf-token", "/create", "/postcontact",
-                                                                "/contacts/**", "/postmeetup")
+                                                                "/contacts/**", "/postmeetup", "/appusers",
+                                                                "/appusers/{id}")
                                                 .permitAll()
                                                 // all other requests require authentication
                                                 .anyRequest().authenticated());

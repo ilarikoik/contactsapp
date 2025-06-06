@@ -24,24 +24,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // @PostMapping("/create")
-    // public ResponseEntity<String> createUser(@RequestBody AppUser user) {
-    // boolean existing = repository.existsByEmail(user.getEmail());
-
-    // if (existing) {
-    // return ResponseEntity.badRequest().body("Email already in use");
-    // }
-
-    // AppUser u = new AppUser();
-    // u.setAppUser(user.getAppUser());
-    // u.setEmail(user.getEmail());
-    // u.setId(user.getId());
-    // u.setContacts(user.getContacts());
-    // u.setPassword(passwordEncoder.encode(user.getPassword()));
-    // AppUser savedUser = repository.save(u);
-    // return ResponseEntity.ok().body("New user created");
-    // }
-
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody AppUser user) {
         boolean existing = repository.existsByEmail(user.getEmail());
