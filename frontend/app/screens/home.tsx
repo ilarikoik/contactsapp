@@ -68,8 +68,6 @@ export default function Home() {
     },
   ];
 
-  // const sorted = categories.sort((a, b) => a.label.localeCompare(b.label));
-
   const filtered = data?.filter((item: any) =>
     item.name?.toLowerCase().includes(search.toLowerCase())
   );

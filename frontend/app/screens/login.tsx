@@ -35,8 +35,10 @@ type TabParamList = {
 export default function Login() {
   const { setUser } = useUser();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ile");
+  const [password, setPassword] = useState("ile");
 
   useEffect(() => {
     const get = async () => {};
@@ -46,14 +48,22 @@ export default function Login() {
   const onClick = async () => {
     try {
       const res = await login({ email, password });
+      console.log(res, "resposnse");
       if (res.id) {
         setUser({
           id: res.id,
           appUser: res.appUser || "thjä",
           email: res.email || "",
         });
-        // navigation.navigate("Home");
       }
+      // if (!res) {
+      //   setUser({
+      //     id: 1001,
+      //     appUser: "testikäyttäjä",
+      //     email: "testi@example.com",
+      //   });
+      // }
+      // navigation.navigate("Home");
     } catch (e) {
       Error("Login error: ");
     }

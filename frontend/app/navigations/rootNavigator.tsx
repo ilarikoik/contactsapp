@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/login";
@@ -9,7 +9,7 @@ import CreateAccount from "../screens/createAccout";
 const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   return (
     <NavigationContainer>

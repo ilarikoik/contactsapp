@@ -9,7 +9,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../screens/home";
 import Contacts from "./contacts";
 import Settings from "./settings";
-import Calendar from "./calendar";
 //icons
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
@@ -18,6 +17,7 @@ import { useEffect } from "react";
 import { Header } from "react-native/Libraries/NewAppScreen";
 import { useTheme } from "../../context/themeContext";
 import { View } from "react-native";
+import CalendarScreen from "./calendar";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +69,7 @@ export default function TabsNavigation() {
       />
       <Tab.Screen
         name="Calendar"
-        component={Calendar}
+        component={CalendarScreen}
         options={{
           title: "Calendar",
           tabBarIcon: ({ color }) => (
