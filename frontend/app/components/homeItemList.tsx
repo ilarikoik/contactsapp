@@ -6,10 +6,12 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
+import MeetupModal from "./addMeetup";
 
 type listProps = {
   data: any[];
@@ -18,6 +20,9 @@ type listProps = {
 
 export default function HomeItemList({ data, itemHeight }: listProps) {
   const { theme, setTheme, colors } = useTheme();
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+  const [datetime, setDatetime] = useState("");
 
   const sliceTime = (item: string) => {
     const max = 5;
@@ -28,17 +33,30 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
     return;
   };
 
+  const handleClick = (date: string, time: string) => {
+    const dt = date + "T" + time; // oikea muoto Javaa varten
+    setDatetime(dt);
+    console.log(dt);
+    setShowModal(true);
+  };
+
   return (
     <>
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
+          <MeetupModal
+            toggleModal={toggleModal}
+            showModal={showModal}
+            datetime={datetime}
+          ></MeetupModal>
           <FlatList
             data={data}
             // ListHeaderComponent={() => (
             //   <Text style={styles.h1}>Find someting to do..</Text>
             // )}
             renderItem={({ item }) => (
-              <View
+              <TouchableOpacity
+                onPress={() => handleClick(item.date, item.time)}
                 style={[
                   styles.listItem,
                   {
@@ -55,7 +73,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                         ? item.images[
                             Math.floor(Math.random() * item.images.length)
                           ].url
-                        : "https://via.placeholder.com/150",
+                        : "https://ih1.redbubble.net/image.4905811447.8675/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
                   }}
                   style={{ width: "100%", height: 200 }}
                   resizeMode="cover"
@@ -79,7 +97,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                     {item.date}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -96,7 +114,6 @@ const styles = StyleSheet.create({
   },
   listItem: {
     margin: 5,
-
     borderBottomWidth: 1,
     padding: 5,
     alignItems: "center",

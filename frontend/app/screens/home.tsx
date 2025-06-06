@@ -21,10 +21,10 @@ import HomeItemList from "../components/homeItemList";
 import getTicketmaster from "../api/get/getTicketMaster";
 import getBoredAPi from "../api/get/getBoredApi";
 import { formatBoredData } from "../utils/formatters";
+import MeetupModal from "../components/addMeetup";
 
 export default function Home() {
   const [data, setData] = useState<any>();
-
   const { user } = useUser();
   const { colors, theme } = useTheme();
   const [searchBar, setSearchBar] = useState(false);
@@ -89,6 +89,7 @@ export default function Home() {
           title="test ticket"
           onPress={async () => console.log(await getTicketmaster("FI"))}
         /> */}
+
         <View style={styles.categorycon}>
           {searchBar ? (
             <>
