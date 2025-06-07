@@ -3,7 +3,7 @@ import CONFIG from "../../config";
 export default async function getTicketmaster(country: string) {
   try {
     const res = await fetch(
-      `${CONFIG.TICKETMASTER_BASE_URL}countryCode=${country}&size=50&apikey=${CONFIG.TICKETMASTER_KEY}`
+      `${CONFIG.TICKETMASTER_BASE_URL}countryCode=${country}&size=100&apikey=${CONFIG.TICKETMASTER_KEY}`
     );
 
     if (!res.ok) {
