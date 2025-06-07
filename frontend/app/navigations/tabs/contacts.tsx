@@ -15,6 +15,7 @@ import { useTheme } from "../../context/themeContext";
 import ContactModal from "../../components/addContactModal";
 import { useUser } from "../../context/userContext";
 import getContacts from "../../api/get/getContacts";
+import { useEvent } from "../../context/eventContext";
 
 export default function Contacts() {
   const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ export default function Contacts() {
   const toggleModal = () => setModalVisible(!modalVisible);
   const { theme, setTheme, colors } = useTheme();
   const { user } = useUser();
+  const { refreshToggle } = useEvent();
   const [search, setSearch] = useState("");
 
   const handleAdd = () => {
@@ -36,7 +38,7 @@ export default function Contacts() {
       }
     };
     get();
-  }, []);
+  }, [refreshToggle]);
 
   const filtered = data.filter(
     (item: any) =>

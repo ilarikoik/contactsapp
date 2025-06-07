@@ -13,6 +13,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "../context/themeContext";
 import postContact from "../api/post/postContact";
 import { useUser } from "../context/userContext";
+import { useEvent } from "../context/eventContext";
 
 type ModalProps = {
   toggleModal: () => void;
@@ -31,6 +32,7 @@ type ContactType = {
 
 export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
   const { user } = useUser();
+  const { events, setEvents, refreshToggle, toggleRefresh } = useEvent();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -51,11 +53,11 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
       };
       // console.log(contact);
       const res = await postContact(contact);
-      console.log("postaus frontti");
       console.log(res);
     }
     // await funktio jolle annetaan objekti
     toggleModal();
+    toggleRefresh();
   };
 
   const { theme, colors } = useTheme();
