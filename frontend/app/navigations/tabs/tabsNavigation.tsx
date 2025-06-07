@@ -45,8 +45,10 @@ export default function TabsNavigation() {
           backgroundColor: colors.background,
         },
         headerTintColor: colors.text,
-        tabBarActiveTintColor: colors.text, // Aktiivisen tabin teksti/ikoni
-        tabBarInactiveTintColor: colors.text, // Epäaktiivisen tabin teksti/ikoni
+        tabBarActiveTintColor: colors.background,
+        tabBarInactiveTintColor: colors.text,
+        tabBarActiveBackgroundColor: "#ccc",
+
         tabBarBackground: () => (
           <View
             style={{
