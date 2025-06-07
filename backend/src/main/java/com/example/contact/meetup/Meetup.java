@@ -43,7 +43,7 @@ public class Meetup {
             joinColumns = @JoinColumn(name = "meetup_id"), // viittaa tähän entiteettiin (Meetup)
             inverseJoinColumns = @JoinColumn(name = "user_id") // viittaa toiseen entiteettiin (AppUser)
     )
-    private List<AppUser> participants;
+    private List<AppUser> participants; // odottaa listaa objekteja (objektin sisään vaan id)
 
     public Meetup() {
     }

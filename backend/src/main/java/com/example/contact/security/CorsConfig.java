@@ -21,6 +21,14 @@ public class CorsConfig {
                                                 .allowedOrigins("http://192.168.10.230:19000")
                                                 .allowedMethods("GET")
                                                 .allowCredentials(true);
+                                registry.addMapping("/meetups/{id}")
+                                                .allowedOrigins("http://192.168.10.230:19000")
+                                                .allowedMethods("GET")
+                                                .allowCredentials(true);
+                                registry.addMapping("/meetups/user/{userId}")
+                                                .allowedOrigins("http://192.168.10.230:19000")
+                                                .allowedMethods("GET")
+                                                .allowCredentials(true);
                                 registry.addMapping("/create")
                                                 .allowedOrigins("http://192.168.10.230:19000")
                                                 .allowedMethods("POST")

@@ -32,7 +32,8 @@ public class ContactsController {
     public ResponseEntity<String> postContacts(@RequestBody Contacts contacts) {
         // otetaan se AppUserin id ja sen perusteella haetaan sen tiedot
         // ja asetetaan Contactiin
-        Long appUserId = contacts.getAppUser().getId();
+        Long appUserId = contacts.getAppUser().getId(); // concats objektiin on annettu appUser objekti joka sisältää
+                                                        // annetun id
         Optional<AppUser> appUser = userRepository.findById(appUserId);
         if (appUser.isPresent()) {
             contacts.setAppUser(appUser.get());

@@ -35,7 +35,8 @@ public class SecurityConfig {
                                                 // allow access without authentication to these endpoints
                                                 .requestMatchers("/login", "/csrf-token", "/create", "/postcontact",
                                                                 "/contacts/**", "/postmeetup", "/appusers",
-                                                                "/appusers/{id}")
+                                                                "/appusers/{id}", "/meetups/{id}", "/meetups",
+                                                                "/meetups/user/{userId}")
                                                 .permitAll()
                                                 // all other requests require authentication
                                                 .anyRequest().authenticated());
