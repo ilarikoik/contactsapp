@@ -33,40 +33,12 @@ export default function Home() {
   useEffect(() => {
     const get = async () => {
       if (user?.id) {
+        const res = await getTicketmaster("FI");
+        setData(res);
       }
     };
     get();
   }, []);
-
-  const categories = [
-    {
-      label: "Restaurants",
-      // onPress: fetchRestaurants,
-      active: false,
-    },
-    {
-      label: "Bars",
-      // onPress: fetchBars,
-    },
-    {
-      label: "Events",
-      onPress: getTicketmaster,
-      active: false,
-    },
-    {
-      label: "Games",
-      // onPress: fetchGames,
-    },
-    {
-      label: "Parks & Grill",
-      // onPress: fetchParksAndGrill,
-    },
-    {
-      label: "Random Activity",
-      onPress: getBoredAPi,
-      active: false,
-    },
-  ];
 
   const filtered = data?.filter((item: any) =>
     item.name?.toLowerCase().includes(search.toLowerCase())
@@ -77,11 +49,11 @@ export default function Home() {
     setSearch("");
   };
 
-  const handleCategory = async (category: any) => {
-    setSearchBar(true);
-    const result = await category.onPress("FI");
-    setData(result);
-  };
+  // const handleCategory = async (category: any) => {
+  //   setSearchBar(true);
+  //   const result = await category.onPress("FI");
+  //   setData(result);
+  // };
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>

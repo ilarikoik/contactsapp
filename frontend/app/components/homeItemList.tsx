@@ -60,6 +60,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                 style={[
                   styles.listItem,
                   {
+                    shadowColor: colors.text,
                     height: itemHeight,
                     backgroundColor: colors.background,
                     borderColor: "black",
@@ -91,7 +92,9 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
                 </View>
                 <View style={styles.infocon}>
                   <Text style={{ color: colors.text, fontSize: 15 }}>
-                    {sliceTime(item.time)}
+                    {item.time === null
+                      ? "No starting time mentioned"
+                      : sliceTime(item.time)}
                   </Text>
                   <Text style={{ color: colors.text, fontSize: 15 }}>
                     {item.date}
@@ -113,11 +116,19 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   listItem: {
-    margin: 5,
-    borderBottomWidth: 1,
+    margin: 10,
+    borderRadius: 7,
     padding: 5,
     alignItems: "center",
     justifyContent: "space-around",
+    elevation: 5,
+    shadowOpacity: 0.3, // varjon näkyvyys (0–1)
+    shadowRadius: 5, // varjon pehmeys
+    shadowOffset: {
+      // varjon sijainti
+      width: 0,
+      height: 2,
+    },
 
     // backgroundColor: "red",
   },
@@ -130,6 +141,7 @@ const styles = StyleSheet.create({
   },
   infocon: {
     // backgroundColor: "green",
+    padding: 3,
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-evenly",
