@@ -1,11 +1,14 @@
 import React, { ReactNode } from "react";
 import { UserProvider } from "./userContext";
 import { ThemeProvider } from "./themeContext";
+import { EventProvider } from "./eventContext";
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
-    <UserProvider>
-      <ThemeProvider>{children}</ThemeProvider>
-    </UserProvider>
+    <EventProvider>
+      <UserProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+      </UserProvider>
+    </EventProvider>
   );
 };

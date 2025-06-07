@@ -12,13 +12,16 @@ import {
 import LogoutButton from "../../components/logout";
 import { useUser } from "../../context/userContext";
 import { useTheme } from "../../context/themeContext";
+import { useEvent } from "../../context/eventContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Entypo from "@expo/vector-icons/Entypo";
 import SwitchButton from "../../components/switchButton";
+import { upComingEvents, upPastEvents } from "../../utils/upComingAmount";
 
 export default function Settings() {
   const { user } = useUser();
   const { theme, setTheme, colors } = useTheme();
+  const { events } = useEvent();
 
   return (
     <>
@@ -30,6 +33,7 @@ export default function Settings() {
           },
         ]}
       >
+        <Text style={[styles.h1, { color: colors.text }]}>{user?.appUser}</Text>
         <View style={styles.settingscon}>
           <View style={styles.textContainer}>
             <Text
@@ -47,6 +51,9 @@ export default function Settings() {
               </View>
             </Text>
             <Text
+              onPress={() =>
+                console.log("tee uusi screen ja vie sinne ja näytä tulevat")
+              }
               style={[
                 styles.text,
                 {
@@ -54,7 +61,8 @@ export default function Settings() {
                 },
               ]}
             >
-              You have x upcoming events.
+              You have {events ? upComingEvents(events).length : "0 "} upcoming
+              events.
             </Text>
             <Text
               style={[
@@ -63,8 +71,13 @@ export default function Settings() {
                   color: colors.text,
                 },
               ]}
+              onPress={() =>
+                console.log("tee uusi screen ja vie sinne ja näytä menneet")
+              }
             >
-              You had x events.
+              {upPastEvents(events).length > 1
+                ? ` You had ${upPastEvents(events).length} events.`
+                : ` You had ${upPastEvents(events).length} event.`}
             </Text>
             <LogoutButton />
           </View>
@@ -102,5 +115,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 15,
     marginBottom: 20,
+    fontWeight: "semibold",
+  },
+  h1: {
+    fontWeight: "bold",
+    fontSize: 40,
+    fontStyle: "italic",
+    textShadowColor: "#ccc",
+    textShadowOffset: {
+      width: 1,
+      height: 1,
+    },
   },
 });

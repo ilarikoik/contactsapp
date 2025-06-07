@@ -2,30 +2,21 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
-  SafeAreaView,
-  Button,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import ItemList from "../components/itemList";
 import { useUser } from "../context/userContext";
 import { useTheme } from "../context/themeContext";
-import getContacts from "../api/get/getContacts";
-import getToken from "../api/get/fetchToken";
-import postMeetup from "../api/post/postMeetup";
-import { ScrollView } from "react-native-gesture-handler";
 import HomeItemList from "../components/homeItemList";
 import getTicketmaster from "../api/get/getTicketMaster";
-import getBoredAPi from "../api/get/getBoredApi";
-import { formatBoredData } from "../utils/formatters";
-import MeetupModal from "../components/addMeetup";
+import { useEvent } from "../context/eventContext";
+import getEvents from "../api/get/getUserEvents";
 
 export default function Home() {
   const [data, setData] = useState<any>();
   const { user } = useUser();
+  const { events, setEvents, refreshToggle } = useEvent();
   const { colors, theme } = useTheme();
   const [searchBar, setSearchBar] = useState(false);
   const [search, setSearch] = useState("");
@@ -38,7 +29,20 @@ export default function Home() {
       }
     };
     get();
-  }, []);
+  }, [user]);
+
+  // ladataa vaa uudet muuttuneet omat eventit
+  // ei haluta että koko sivu päivittyy ja pitää rullaa taas ylhäältä alas
+  useEffect(() => {
+    const get = async () => {
+      if (user?.id) {
+        const get = await getEvents(user.id);
+        setEvents(get);
+        console.log(get, " kook");
+      }
+    };
+    get();
+  }, [refreshToggle]);
 
   const filtered = data?.filter((item: any) =>
     item.name?.toLowerCase().includes(search.toLowerCase())
@@ -57,11 +61,6 @@ export default function Home() {
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
-        {/* <Button
-          title="test ticket"
-          onPress={async () => console.log(await getTicketmaster("FI"))}
-        /> */}
-
         <View style={styles.categorycon}>
           {
             searchBar && (
@@ -111,9 +110,6 @@ export default function Home() {
             // )
           }
         </View>
-        {/* <Text style={[styles.h1, { color: colors.text }]}>
-          {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}
-        </Text> */}
         <HomeItemList data={filtered} itemHeight={280}></HomeItemList>
       </View>
     </>

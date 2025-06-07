@@ -16,6 +16,7 @@ import postContact from "../api/post/postContact";
 import { useUser } from "../context/userContext";
 import getContacts from "../api/get/getContacts";
 import postMeetup from "../api/post/postMeetup";
+import { useEvent } from "../context/eventContext";
 
 type ModalProps = {
   toggleModal: () => void;
@@ -68,6 +69,7 @@ export const MeetupModal = ({
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
   const { theme, colors } = useTheme();
+  const { toggleRefresh, refreshToggle } = useEvent();
 
   const saveMeetup = async () => {
     if (creator && date) {
@@ -83,6 +85,8 @@ export const MeetupModal = ({
     }
     toggleModal();
     setParticipants([]);
+    toggleRefresh();
+    console.log(refreshToggle, "addmeetup modal");
   };
 
   const handleModal = () => {
@@ -94,7 +98,6 @@ export const MeetupModal = ({
       setDate(datetime);
       if (user) {
         const res = await getContacts(user?.id);
-        console.log(res);
         setContacts(res);
       }
     };

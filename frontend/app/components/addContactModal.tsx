@@ -49,7 +49,7 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
           userId,
         },
       };
-      console.log(contact);
+      // console.log(contact);
       const res = await postContact(contact);
       console.log("postaus frontti");
       console.log(res);

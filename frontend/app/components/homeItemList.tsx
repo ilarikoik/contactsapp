@@ -34,9 +34,11 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
   };
 
   const handleClick = (date: string, time: string) => {
+    if (!time) {
+      time = "23:23:23";
+    }
     const dt = date + "T" + time; // oikea muoto Javaa varten
     setDatetime(dt);
-    console.log(dt);
     setShowModal(true);
   };
 

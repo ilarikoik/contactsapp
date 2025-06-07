@@ -13,6 +13,8 @@ import getToken from "../api/get/fetchToken";
 import LoginButton from "../components/loginButton";
 import login from "../api/post/login";
 import { useUser } from "../context/userContext";
+import getEvents from "../api/get/getUserEvents";
+import { useEvent } from "../context/eventContext";
 
 type RootStackParamList = {
   Login: undefined; // Ei parametreja
@@ -33,31 +35,26 @@ type TabParamList = {
 };
 
 export default function Login() {
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [email, setEmail] = useState("ile");
   const [password, setPassword] = useState("ile");
 
-  useEffect(() => {
-    const get = async () => {};
-    get();
-  }, []);
-
   const onClick = async () => {
     try {
       const res = await login({ email, password });
-      console.log(res, "resposnse");
       if (res.id) {
         setUser({
           id: res.id,
           appUser: res.appUser || "thjä",
           email: res.email || "",
         });
+        // const events = await getEvents(res.id);
+        // setEvents(events);
       }
-
-      // navigation.navigate("Home");
     } catch (e) {
       Error("Login error: ");
     }

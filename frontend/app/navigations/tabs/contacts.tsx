@@ -65,7 +65,6 @@ export default function Contacts() {
             returnKeyType="done"
             onChangeText={(text) => setSearch(text)}
           />
-
           <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
             <Text style={[styles.addText, { color: "#fff" }]}>Add</Text>
           </TouchableOpacity>

@@ -1,9 +1,9 @@
-export default async function getContacts(appUserId: number) {
+export default async function getEvents(userId: number) {
   try {
     const res = await fetch("http://192.168.10.230:8080/csrf-token");
     const token = await res.json();
     const response = await fetch(
-      `http://192.168.10.230:8080/contacts/${appUserId}`,
+      `http://192.168.10.230:8080/meetups/user/${userId}`,
       {
         method: "GET",
         headers: {
@@ -21,6 +21,6 @@ export default async function getContacts(appUserId: number) {
     }
     return response.json();
   } catch (error) {
-    console.log("error while fetcing contacts", error);
+    console.log("error while fetcing users events", error);
   }
 }
