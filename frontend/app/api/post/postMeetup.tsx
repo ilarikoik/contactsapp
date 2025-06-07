@@ -3,24 +3,26 @@ import fetchToken from "../get/fetchToken";
 /**
  *
  */
-interface MeetupProps {
-  date: String;
+type MeetupProps = {
+  date: string;
   location: string;
   todo: string;
   info: string;
+  creator: number;
   participants: Participants[];
-}
-interface Participants {
-  participant: number;
-}
-export default async function postMeetup() {
-  // {
-  //   date,
-  //   location,
-  //   todo,
-  //   info,
-  //   participants,
-  // }: MeetupProps
+};
+
+type Participants = {
+  id: number;
+};
+export default async function postMeetup({
+  creator,
+  date,
+  location,
+  todo,
+  info,
+  participants,
+}: MeetupProps) {
   try {
     const token = await fetchToken();
     const response = await fetch("http://192.168.10.230:8080/postmeetup", {
@@ -31,28 +33,25 @@ export default async function postMeetup() {
       },
       credentials: "include",
       body: JSON.stringify({
-        date: "2025-06-05T17:00:00",
-        where: "Kahvila Kampissa",
-        todo: "Tapaaminen ja suunnittelu",
-        info: "Tuodaan omat koneet, jutellaan projektista",
+        date: date,
+        location: location,
+        todo: todo,
+        info: info,
         creator: {
-          id: 2,
+          id: creator,
         },
-        participants: [
-          {
-            id: 1,
-          },
-          {
-            id: 2,
-          },
-          {
-            id: 3,
-          },
-          {
-            id: 4,
-          },
-        ],
+        participants: participants,
       }),
+      // body: JSON.stringify({
+      //   creator: {
+      //     id: 2,
+      //   },
+      //   date: "2025-06-12T18:00:00",
+      //   info: "qwe",
+      //   location: "asd",
+      //   participants: [{ id: 16 }, { id: 17 }],
+      //   todo: "qwe",
+      // }),
     });
     if (!response.ok) {
       const errorText = await response.text();
@@ -63,6 +62,6 @@ export default async function postMeetup() {
     const okText = await response.text();
     console.log("OK response text:", okText);
   } catch (error) {
-    console.log("error while creating account, POST", error);
+    console.log("error while creating meetup, POST", error);
   }
 }

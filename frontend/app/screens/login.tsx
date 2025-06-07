@@ -56,13 +56,7 @@ export default function Login() {
           email: res.email || "",
         });
       }
-      // if (!res) {
-      //   setUser({
-      //     id: 1001,
-      //     appUser: "testikäyttäjä",
-      //     email: "testi@example.com",
-      //   });
-      // }
+
       // navigation.navigate("Home");
     } catch (e) {
       Error("Login error: ");

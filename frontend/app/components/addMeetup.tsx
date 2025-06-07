@@ -15,6 +15,7 @@ import { useTheme } from "../context/themeContext";
 import postContact from "../api/post/postContact";
 import { useUser } from "../context/userContext";
 import getContacts from "../api/get/getContacts";
+import postMeetup from "../api/post/postMeetup";
 
 type ModalProps = {
   toggleModal: () => void;
@@ -22,15 +23,28 @@ type ModalProps = {
   datetime: string;
 };
 
+/**
+ * backend odottaa tämmöstä
+ */
 type MeetupType = {
   date: string;
   location: string;
   todo: string;
   info: string;
-  creator: number;
-  participants: number[];
+  creator: number; // backendi odottaa objektia joten POST pyynnössä tee
+  participants: Participants[];
 };
 
+/**
+ * backend odottaa listaa objekteista
+ */
+type Participants = {
+  id: number;
+};
+
+/**
+ * mitä tietokannasta tulee contacteihin
+ */
 type Contact = {
   id: number;
   firstName: string;
@@ -50,7 +64,7 @@ export const MeetupModal = ({
   const [todo, setTodo] = useState("");
   const [info, setInfo] = useState("");
   const [creator, setCreator] = useState(user?.id);
-  const [participants, setParticipants] = useState<number[]>([]);
+  const [participants, setParticipants] = useState<Participants[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
   const { theme, colors } = useTheme();
@@ -65,8 +79,7 @@ export const MeetupModal = ({
         creator,
         participants,
       };
-      console.log(meetup);
-      // LÄHETÄ
+      await postMeetup(meetup);
     }
     toggleModal();
     setParticipants([]);
@@ -89,7 +102,7 @@ export const MeetupModal = ({
   }, [datetime]);
 
   const addToParcitipants = (id: number) => {
-    setParticipants([...participants, id]);
+    setParticipants([...participants, { id }]);
     const filteredContacts = contacts.filter((item) => item.id !== id);
     console.log(id, " lisätty");
     console.log(participants);

@@ -91,42 +91,53 @@ export default function Home() {
         /> */}
 
         <View style={styles.categorycon}>
-          {searchBar ? (
-            <>
-              <View style={styles.searchcon}>
-                <TouchableOpacity style={styles.addButton} onPress={handleBack}>
-                  <Text style={[styles.addText, { color: "#fff" }]}>Back</Text>
-                </TouchableOpacity>
-                <TextInput
-                  style={[
-                    styles.input,
-                    {
-                      backgroundColor: theme === "dark" ? colors.text : "#ccc",
-                      color: theme === "dark" ? colors.background : "#000",
-                    },
-                  ]}
-                  placeholder="Search"
-                  placeholderTextColor="#999"
-                  returnKeyType="done"
-                  onChangeText={(text) => setSearch(text)}
-                />
-              </View>
-            </>
-          ) : (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {categories.map((category, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={[styles.categorybutton, { borderColor: colors.text }]}
-                  onPress={() => handleCategory(category)}
-                >
-                  <Text style={[styles.text, { color: colors.text }]}>
-                    {category.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          )}
+          {
+            searchBar && (
+              // (
+              <>
+                <View style={styles.searchcon}>
+                  <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={handleBack}
+                  >
+                    <Text style={[styles.addText, { color: "#fff" }]}>
+                      Back
+                    </Text>
+                  </TouchableOpacity>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      {
+                        backgroundColor:
+                          theme === "dark" ? colors.text : "#ccc",
+                        color: theme === "dark" ? colors.background : "#000",
+                      },
+                    ]}
+                    placeholder="Search"
+                    placeholderTextColor="#999"
+                    returnKeyType="done"
+                    onChangeText={(text) => setSearch(text)}
+                  />
+                </View>
+              </>
+            )
+            // ) :
+            // (
+            //   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            //     {categories.map((category, index) => (
+            //       <TouchableOpacity
+            //         key={index}
+            //         style={[styles.categorybutton, { borderColor: colors.text }]}
+            //         onPress={() => handleCategory(category)}
+            //       >
+            //         <Text style={[styles.text, { color: colors.text }]}>
+            //           {category.label}
+            //         </Text>
+            //       </TouchableOpacity>
+            //     ))}
+            //   </ScrollView>
+            // )
+          }
         </View>
         {/* <Text style={[styles.h1, { color: colors.text }]}>
           {user ? "Welcome, " + user?.appUser + "!" : "How you got here??"}

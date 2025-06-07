@@ -18,6 +18,7 @@ export default function CalendarScreen() {
         onDayPress={(day) => {
           console.log("selected day", day);
         }}
+        // hae meetupista päivämäärä(t) käyttäjän id perusteella 
         markedDates={{
           "2025-06-01": {
             selected: true,
