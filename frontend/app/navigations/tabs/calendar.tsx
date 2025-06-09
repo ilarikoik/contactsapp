@@ -48,10 +48,6 @@ export default function CalendarScreen() {
         flex: 1,
       }}
     >
-      <Button
-        title="eventit "
-        onPress={() => console.log(markedDates)}
-      ></Button>
       <View style={styles.container}>
         <Calendar
           current={new Date().toISOString()}
