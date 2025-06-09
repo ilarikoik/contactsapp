@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  View,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -10,8 +9,6 @@ import {
 } from "react-native";
 import { useTheme } from "../context/themeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEvent } from "../context/eventContext";
-import { upComingEvents } from "../utils/upComingAmount";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 
 export type RootStackParamList = {
@@ -27,9 +24,7 @@ export default function Events() {
 
   const renderItem = ({ item }: any) => {
     const pvm = new Date();
-    setTitle(
-      new Date(item.date) >= pvm ? "Tulevat tapahtumasi" : "Menneet tapahtumasi"
-    );
+    setTitle(new Date(item.date) >= pvm ? "Upcoming Events" : "Past Events");
     return (
       <TouchableOpacity
         style={[
