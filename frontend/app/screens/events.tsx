@@ -24,7 +24,7 @@ export default function Events() {
 
   const renderItem = ({ item }: any) => {
     const pvm = new Date();
-    setTitle(new Date(item.date) >= pvm ? "Upcoming Events" : "Past Events");
+    setTitle(new Date(item.date) >= pvm ? "Future Events" : "Previous Events");
     return (
       <TouchableOpacity
         style={[
