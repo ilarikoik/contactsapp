@@ -20,7 +20,7 @@ export default function Events() {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<RootStackParamList, "Events">>();
   const { e } = route.params;
-  const [title, setTitle] = useState("Tapahtumasi");
+  const [title, setTitle] = useState("Events");
 
   const renderItem = ({ item }: any) => {
     const pvm = new Date();
