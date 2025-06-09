@@ -5,6 +5,7 @@ import Login from "../screens/login";
 import TabsNavigation from "./tabs/tabsNavigation";
 import { useUser } from "../context/userContext";
 import CreateAccount from "../screens/createAccout";
+import Events from "../screens/events";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,10 @@ export default function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Tabs" component={TabsNavigation} />
+          <>
+            <Stack.Screen name="Tabs" component={TabsNavigation} />
+            <Stack.Screen name="Events" component={Events} />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} />

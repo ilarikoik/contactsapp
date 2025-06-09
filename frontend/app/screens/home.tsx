@@ -38,7 +38,6 @@ export default function Home() {
       if (user?.id) {
         const get = await getEvents(user.id);
         setEvents(get);
-        console.log(get, " kook");
       }
     };
     get();

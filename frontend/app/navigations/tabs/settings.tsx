@@ -16,12 +16,29 @@ import { useEvent } from "../../context/eventContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Entypo from "@expo/vector-icons/Entypo";
 import SwitchButton from "../../components/switchButton";
-import { upComingEvents, upPastEvents } from "../../utils/upComingAmount";
+import { pastEvents, upComingEvents } from "../../utils/upComingAmount";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { EventTypes } from "react-native-gesture-handler/lib/typescript/web/interfaces";
+
+type RootStackParamList = {
+  Events: { e: Event[] };
+};
 
 export default function Settings() {
   const { user } = useUser();
   const { theme, setTheme, colors } = useTheme();
   const { events } = useEvent();
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const handleComing = () => {
+    const upcoming = upComingEvents(events);
+    navigation.navigate("Events", { e: upcoming });
+  };
+  const handlePast = () => {
+    const past = pastEvents(events);
+    navigation.navigate("Events", { e: past });
+  };
 
   return (
     <>
@@ -51,9 +68,7 @@ export default function Settings() {
               </View>
             </Text>
             <Text
-              onPress={() =>
-                console.log("tee uusi screen ja vie sinne ja näytä tulevat")
-              }
+              onPress={handleComing}
               style={[
                 styles.text,
                 {
@@ -71,13 +86,11 @@ export default function Settings() {
                   color: colors.text,
                 },
               ]}
-              onPress={() =>
-                console.log("tee uusi screen ja vie sinne ja näytä menneet")
-              }
+              onPress={handlePast}
             >
-              {upPastEvents(events).length > 1
-                ? ` You had ${upPastEvents(events).length} events.`
-                : ` You had ${upPastEvents(events).length} event.`}
+              {pastEvents(events).length > 1
+                ? ` You had ${pastEvents(events).length} events.`
+                : ` You had ${pastEvents(events).length} event.`}
             </Text>
             <LogoutButton />
           </View>

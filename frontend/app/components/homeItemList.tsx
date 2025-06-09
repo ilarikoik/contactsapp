@@ -23,6 +23,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
   const [datetime, setDatetime] = useState("");
+  const [title, setTitle] = useState("");
 
   const sliceTime = (item: string) => {
     const max = 5;
@@ -33,13 +34,14 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
     return;
   };
 
-  const handleClick = (date: string, time: string) => {
+  const handleClick = (date: string, time: string, title: string) => {
     if (!time) {
       time = "23:23:23";
     }
     const dt = date + "T" + time; // oikea muoto Javaa varten
     setDatetime(dt);
     setShowModal(true);
+    setTitle(title);
   };
 
   return (
@@ -50,6 +52,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
             toggleModal={toggleModal}
             showModal={showModal}
             datetime={datetime}
+            title={title}
           ></MeetupModal>
           <FlatList
             data={data}
@@ -58,7 +61,7 @@ export default function HomeItemList({ data, itemHeight }: listProps) {
             // )}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => handleClick(item.date, item.time)}
+                onPress={() => handleClick(item.date, item.time, item.name)}
                 style={[
                   styles.listItem,
                   {

@@ -22,6 +22,7 @@ type ModalProps = {
   toggleModal: () => void;
   showModal: boolean;
   datetime: string;
+  title: string;
 };
 
 /**
@@ -58,11 +59,12 @@ export const MeetupModal = ({
   toggleModal,
   showModal,
   datetime,
+  title,
 }: ModalProps) => {
   const { user } = useUser();
   const [date, setDate] = useState(datetime);
   const [location, setLocation] = useState("");
-  const [todo, setTodo] = useState("");
+  const [todo, setTodo] = useState(title);
   const [info, setInfo] = useState("");
   const [creator, setCreator] = useState(user?.id);
   const [participants, setParticipants] = useState<Participants[]>([]);
@@ -96,18 +98,18 @@ export const MeetupModal = ({
   useEffect(() => {
     const get = async () => {
       setDate(datetime);
+      setTodo(title);
       if (user) {
         const res = await getContacts(user?.id);
         setContacts(res);
       }
     };
     get();
-  }, [datetime]);
+  }, [datetime, title]);
 
   const addToParcitipants = (id: number) => {
     setParticipants([...participants, { id }]);
     const filteredContacts = contacts.filter((item) => item.id !== id);
-    console.log(id, " lisätty");
     console.log(participants);
     setContacts(filteredContacts);
     setSearch("");
@@ -160,26 +162,6 @@ export const MeetupModal = ({
                 { color: colors.text, textAlign: "left", width: "100%" },
               ]}
             >
-              Meetup Place:
-            </Text>
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  backgroundColor: theme === "dark" ? colors.text : "#ccc",
-                  color: theme === "dark" ? colors.background : "#000",
-                },
-              ]}
-              placeholderTextColor="#999"
-              returnKeyType="done"
-              onChangeText={(text) => setLocation(text)}
-            />
-            <Text
-              style={[
-                styles.label,
-                { color: colors.text, textAlign: "left", width: "100%" },
-              ]}
-            >
               Todo:
             </Text>
             <TextInput
@@ -190,10 +172,33 @@ export const MeetupModal = ({
                   color: theme === "dark" ? colors.background : "#000",
                 },
               ]}
+              value={todo}
               placeholderTextColor="#999"
               returnKeyType="done"
               onChangeText={(text) => setTodo(text)}
             />
+            <Text
+              style={[
+                styles.label,
+                { color: colors.text, textAlign: "left", width: "100%" },
+              ]}
+            >
+              Meetup Place:
+            </Text>
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: theme === "dark" ? colors.text : "#ccc",
+                  color: theme === "dark" ? colors.background : "#000",
+                },
+              ]}
+              placeholder={`"K-Supermarket Tripla"`}
+              placeholderTextColor="#999"
+              returnKeyType="done"
+              onChangeText={(text) => setLocation(text)}
+            />
+
             <Text
               style={[
                 styles.label,
@@ -211,6 +216,7 @@ export const MeetupModal = ({
                 },
               ]}
               placeholderTextColor="#999"
+              placeholder={`"Lets meet at store 18.00"`}
               returnKeyType="done"
               onChangeText={(text) => setInfo(text)}
             />
@@ -230,6 +236,7 @@ export const MeetupModal = ({
                   color: theme === "dark" ? colors.background : "#000",
                 },
               ]}
+              placeholder={`Search`}
               placeholderTextColor="#999"
               returnKeyType="done"
               onChangeText={(text) => setSearch(text)}
