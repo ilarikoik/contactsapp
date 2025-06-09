@@ -15,5 +15,3 @@ export const formatBoredData = (data: any[]) => {
     time: item.type,
   }));
 };
-
-// Voit tehdä lisää esim. ravintoloille, peleille jne.

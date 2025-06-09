@@ -48,7 +48,7 @@ export default function Events() {
           📍 {item.location} {"(" + item.info + ")"}
         </Text>
         <Text style={[styles.meta, { color: colors.text }]}>
-          🗓️ {item.date}
+          🗓️ {sliceTime(item.date)}
         </Text>
         <Text style={[styles.meta, { color: colors.text }]}>
           🧑‍🤝‍🧑{" "}
@@ -59,6 +59,18 @@ export default function Events() {
         </Text>
       </TouchableOpacity>
     );
+  };
+
+  const sliceTime = (item: string) => {
+    const max = 10;
+    if (item && item.length > 1) {
+      const date = item.slice(0, max);
+      let time = item.slice(item.length - 5, item.length);
+      if (time === "23:23") {
+        time = "No event starting time.";
+      }
+      return date + " - " + time;
+    }
   };
 
   return (
