@@ -23,32 +23,41 @@ export default function Events() {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<RootStackParamList, "Events">>();
   const { e } = route.params;
+  const [title, setTitle] = useState("Tapahtumasi");
 
-  const renderItem = ({ item }: any) => (
-    <TouchableOpacity
-      style={[
-        styles.eventCard,
-        {
-          backgroundColor: colors.background,
-          shadowColor: colors.text,
-          marginBottom: 20,
-          shadowOpacity: 0.3, // varjon näkyvyys (0–1)
-          shadowRadius: 5, // varjon pehmeys
-          shadowOffset: {
-            // varjon sijainti
-            width: 0,
-            height: 2,
+  const renderItem = ({ item }: any) => {
+    const pvm = new Date();
+    setTitle(
+      new Date(item.date) >= pvm ? "Tulevat tapahtumasi" : "Menneet tapahtumasi"
+    );
+    return (
+      <TouchableOpacity
+        style={[
+          styles.eventCard,
+          {
+            backgroundColor: colors.background,
+            shadowColor: colors.text,
+            marginBottom: 20,
+            shadowOpacity: 0.3, // varjon näkyvyys (0–1)
+            shadowRadius: 5, // varjon pehmeys
+            shadowOffset: {
+              // varjon sijainti
+              width: 0,
+              height: 2,
+            },
           },
-        },
-      ]}
-    >
-      <Text style={[styles.title, { color: colors.text }]}>{item.todo}</Text>
-      <Text style={[styles.meta, { color: colors.text }]}>
-        📍 {item.location} {"(" + item.info + ")"}
-      </Text>
-      <Text style={[styles.meta, { color: colors.text }]}>🗓️ {item.date}</Text>
-    </TouchableOpacity>
-  );
+        ]}
+      >
+        <Text style={[styles.title, { color: colors.text }]}>{item.todo}</Text>
+        <Text style={[styles.meta, { color: colors.text }]}>
+          📍 {item.location} {"(" + item.info + ")"}
+        </Text>
+        <Text style={[styles.meta, { color: colors.text }]}>
+          🗓️ {item.date}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaProvider
@@ -73,9 +82,7 @@ export default function Events() {
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
           ListHeaderComponent={() => (
-            <Text style={[styles.header, { color: colors.text }]}>
-              Tapahtumasi
-            </Text>
+            <Text style={[styles.header, { color: colors.text }]}>{title}</Text>
           )}
           contentContainerStyle={styles.listContent}
         />
