@@ -31,7 +31,14 @@ export default function Events() {
         {
           backgroundColor: colors.background,
           shadowColor: colors.text,
-          marginBottom: 30,
+          marginBottom: 20,
+          shadowOpacity: 0.3, // varjon näkyvyys (0–1)
+          shadowRadius: 5, // varjon pehmeys
+          shadowOffset: {
+            // varjon sijainti
+            width: 0,
+            height: 2,
+          },
         },
       ]}
     >
