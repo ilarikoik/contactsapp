@@ -54,7 +54,7 @@ export default function Events() {
           🧑‍🤝‍🧑{" "}
           {item.participants &&
             item.participants.map((item: any) => {
-              return item.firstName + item.id + " --- ";
+              return item.firstName + " " + item.lastName + "\n      ";
             })}{" "}
         </Text>
       </TouchableOpacity>
