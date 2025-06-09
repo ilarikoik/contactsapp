@@ -84,11 +84,11 @@ export const MeetupModal = ({
         participants,
       };
       await postMeetup(meetup);
+      console.log(meetup);
     }
     toggleModal();
     setParticipants([]);
     toggleRefresh();
-    console.log(refreshToggle, "addmeetup modal");
   };
 
   const handleModal = () => {

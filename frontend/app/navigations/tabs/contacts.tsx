@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
+  Button,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -34,17 +35,21 @@ export default function Contacts() {
     const get = async () => {
       if (user?.id) {
         const res = await getContacts(user?.id);
-        setData(res);
+        const sorted = res.sort((a: any, b: any) =>
+          a.firstName.localeCompare(b.firstName)
+        );
+
+        setData(sorted);
       }
     };
     get();
   }, [refreshToggle]);
 
-  const filtered = data.filter(
-    (item: any) =>
-      item.firstName?.toLowerCase().includes(search.toLowerCase()) ||
-      item.lastName?.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filtered = data.filter(
+  //   (item: any) =>
+  //     item.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+  //     item.lastName?.toLowerCase().includes(search.toLowerCase())
+  // );
 
   return (
     <>
@@ -73,7 +78,7 @@ export default function Contacts() {
         </View>
         <ContactModal toggleModal={toggleModal} modalVisible={modalVisible} />
 
-        <ItemList data={filtered} itemHeight={60}></ItemList>
+        <ItemList data={data} itemHeight={70}></ItemList>
         {/* </SafeAreaView>
         </SafeAreaProvider> */}
       </View>

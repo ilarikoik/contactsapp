@@ -25,6 +25,7 @@ export default async function postMeetup({
 }: MeetupProps) {
   try {
     const token = await fetchToken();
+    console.log(token.token + "asdadasd");
     const response = await fetch("http://192.168.10.230:8080/postmeetup", {
       method: "POST",
       headers: {
@@ -42,16 +43,6 @@ export default async function postMeetup({
         },
         participants: participants,
       }),
-      // body: JSON.stringify({
-      //   creator: {
-      //     id: 2,
-      //   },
-      //   date: "2025-06-12T18:00:00",
-      //   info: "qwe",
-      //   location: "asd",
-      //   participants: [{ id: 16 }, { id: 17 }],
-      //   todo: "qwe",
-      // }),
     });
     if (!response.ok) {
       const errorText = await response.text();

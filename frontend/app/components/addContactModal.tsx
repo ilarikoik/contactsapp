@@ -71,10 +71,6 @@ export const ContactModal = ({ toggleModal, modalVisible }: ModalProps) => {
       transparent={true}
       visible={modalVisible}
       style={styles.centeredView}
-      //   onRequestClose={() => {
-      //     Alert.alert("Modal has been closed.");
-      //     setModalVisible(!modalVisible);
-      //   }}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>

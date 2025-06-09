@@ -35,12 +35,12 @@ export default function ItemList({ data, itemHeight }: listProps) {
                   {
                     height: itemHeight,
                     backgroundColor: colors.background,
-                    borderColor: "black",
+                    justifyContent: "space-between",
                   },
                 ]}
               >
                 <View style={styles.namecon}>
-                  <Text style={{ color: colors.text, fontSize: 22 }}>
+                  <Text style={{ color: colors.text, fontSize: 26 }}>
                     {item.firstName + " " + item.lastName}
                   </Text>
                   {/* <Text style={{ color: colors.text, fontSize: 22 }}>
@@ -51,7 +51,8 @@ export default function ItemList({ data, itemHeight }: listProps) {
                   <Text
                     style={{
                       color: colors.text,
-                      fontSize: 18,
+                      fontSize: 12,
+                      fontStyle: "italic",
                     }}
                   >
                     {item.phone}
@@ -59,7 +60,8 @@ export default function ItemList({ data, itemHeight }: listProps) {
                   <Text
                     style={{
                       color: colors.text,
-                      fontSize: 18,
+                      fontSize: 12,
+                      fontStyle: "italic",
                     }}
                   >
                     {item.email}
@@ -84,18 +86,19 @@ const styles = StyleSheet.create({
     margin: 5,
     borderBottomWidth: 1,
     padding: 5,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "yellow",
   },
   namecon: {
-    width: "80%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    fontStyle: "italic",
   },
   infocon: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

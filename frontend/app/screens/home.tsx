@@ -52,15 +52,11 @@ export default function Home() {
     setSearch("");
   };
 
-  // const handleCategory = async (category: any) => {
-  //   setSearchBar(true);
-  //   const result = await category.onPress("FI");
-  //   setData(result);
-  // };
   return (
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
         <View style={styles.categorycon}>
+          <Text>{user?.id}</Text>
           {
             searchBar && (
               // (

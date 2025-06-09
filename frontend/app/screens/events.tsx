@@ -50,6 +50,13 @@ export default function Events() {
         <Text style={[styles.meta, { color: colors.text }]}>
           🗓️ {item.date}
         </Text>
+        <Text style={[styles.meta, { color: colors.text }]}>
+          🧑‍🤝‍🧑{" "}
+          {item.participants &&
+            item.participants.map((item: any) => {
+              return item.firstName + item.id + " --- ";
+            })}{" "}
+        </Text>
       </TouchableOpacity>
     );
   };

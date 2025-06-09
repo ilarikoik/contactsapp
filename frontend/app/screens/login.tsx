@@ -38,10 +38,10 @@ export default function Login() {
   const { user, setUser } = useUser();
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("ile");
-  const [password, setPassword] = useState("ile");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("ile");
+  // const [password, setPassword] = useState("ile");
 
   const onClick = async () => {
     try {
