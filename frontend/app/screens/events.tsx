@@ -66,7 +66,7 @@ export default function Events() {
           onPress={() => navigation.goBack()}
           style={styles.goBackBtn}
         >
-          <Text style={styles.goBackText}>← Takaisin</Text>
+          <Text style={styles.goBackText}>← Back</Text>
         </TouchableOpacity>
         <FlatList
           data={e}
