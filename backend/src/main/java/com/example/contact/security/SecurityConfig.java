@@ -2,7 +2,6 @@ package com.example.contact.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,10 +35,14 @@ public class SecurityConfig {
                                                 .requestMatchers("/login", "/csrf-token", "/create", "/postcontact",
                                                                 "/contacts/**", "/postmeetup", "/appusers",
                                                                 "/appusers/{id}", "/meetups/{id}", "/meetups",
-                                                                "/meetups/user/{userId}")
+                                                                "/meetups/user/{userId}",
+                                                                "/meetups/contacts/user/{userId}")
                                                 .permitAll()
                                                 // all other requests require authentication
                                                 .anyRequest().authenticated());
+                // http.csrf(csrf -> csrf
+                // .ignoringRequestMatchers("/postmeetup"));
+
                 return http.build();
         }
 

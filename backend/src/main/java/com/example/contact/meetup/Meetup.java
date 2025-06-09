@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.example.contact.contacts.Contacts;
 import com.example.contact.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -41,15 +42,15 @@ public class Meetup {
     @ManyToMany
     @JoinTable(name = "meetup_participants", // yhdistämistaulun nimi
             joinColumns = @JoinColumn(name = "meetup_id"), // viittaa tähän entiteettiin (Meetup)
-            inverseJoinColumns = @JoinColumn(name = "user_id") // viittaa toiseen entiteettiin (AppUser)
+            inverseJoinColumns = @JoinColumn(name = "contact_id") // viittaa toiseen entiteettiin (Contact)
     )
-    private List<AppUser> participants; // odottaa listaa objekteja (objektin sisään vaan id)
+    private List<Contacts> participants; // odottaa listaa objekteja (objektin sisään vaan id)
 
     public Meetup() {
     }
 
     public Meetup(long id, LocalDateTime date, String location, String todo, String info, AppUser creator,
-            List<AppUser> participants) {
+            List<Contacts> participants) {
         this.id = id;
         this.date = date;
         this.location = location;
@@ -107,11 +108,11 @@ public class Meetup {
         this.creator = creator;
     }
 
-    public List<AppUser> getParticipants() {
+    public List<Contacts> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<AppUser> participants) {
+    public void setParticipants(List<Contacts> participants) {
         this.participants = participants;
     }
 
