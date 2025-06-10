@@ -101,7 +101,10 @@ export const MeetupModal = ({
       setTodo(title);
       if (user) {
         const res = await getContacts(user?.id);
-        setContacts(res);
+        let sorted = res.sort((a: any, b: any) =>
+          a.firstName.localeCompare(b.firstName)
+        );
+        setContacts(sorted);
       }
     };
     get();
@@ -263,7 +266,7 @@ export const MeetupModal = ({
                         },
                       ]}
                     >
-                      {contact.firstName + contact.lastName}
+                      {contact.firstName + " " + contact.lastName}
                     </Text>
                   </TouchableOpacity>
                 ))}

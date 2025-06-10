@@ -56,7 +56,6 @@ export default function Home() {
     <>
       <View style={[styles.con, { backgroundColor: colors.background }]}>
         <View style={styles.categorycon}>
-          <Text>{user?.id}</Text>
           {
             searchBar && (
               // (
